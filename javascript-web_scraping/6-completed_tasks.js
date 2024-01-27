@@ -1,10 +1,6 @@
 #!/usr/bin/node
 const request = require('request');
 
-if (process.argv.length < 3) {
-  console.error('Please provide the JSONPlaceholder API URL as an argument');
-  process.exit(1);
-}
 
 const apiUrl = process.argv[2];
 
