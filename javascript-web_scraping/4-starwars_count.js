@@ -1,11 +1,6 @@
 #!/usr/bin/node
 const request = require('request');
 
-if (process.argv.length < 3) {
-  console.error('Please provide the Star Wars API URL as an argument');
-  process.exit(1);
-}
-
 const apiUrl = process.argv[2];
 
 const wedgeAntillesId = 18;
