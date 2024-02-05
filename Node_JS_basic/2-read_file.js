@@ -1,32 +1,31 @@
 const fs = require('fs');
 
-function countStudents (path) {
+function countStudents(path) {
   try {
-    const data = fs.readFileSync(path, 'utf8');
+    const stddata = fs.readFileSync(path, 'utf8');
+    const stdSlipt = stddata.split('\n').slice(1);
 
-    const lines = data.split('\n').filter(line => line.trim() !== '');
+    console.log(`Number of students: ${stdSlipt.length}`);
 
-    if (lines.length === 0) {
-      throw new Error('No valid student data found in the database');
-    }
+    const field = {};
 
-    const header = lines[0].split(',');
-    const students = lines.slice(1);
+    stdSlipt.forEach((e) => {
+      const stdValue = e.split(',');
+      const key = stdValue[stdValue.length];
 
-    const result = {
-      totalStudents: students.length
-    };
-
-    header.forEach((field, index) => {
-      const fieldStudents = students.map(student => student.split(',')[index].trim()).filter(Boolean);
-      result[`studentsIn${field}`] = fieldStudents.length;
-      result[`listOf${field}`] = fieldStudents.join(', ');
+      if (!Object.keys(field).includes(key)) {
+        field[key] = [];
+        field[key].push(stdValue[0].trim());
+      } else {
+        field[key].push(stdValue[0].trim());
+      }
     });
 
-    console.log(result);
-    console.log(`Number of students: ${result.totalStudents}`);
+    for (const [key, obj] of Object.entries(field)) {
+      console.log(`Number of students in ${key}: ${obj.length}. List: ${obj.join(', ')}`);
+    }
   } catch (error) {
-    throw new Error(error)
+    throw new Error(error);
   }
 }
 
