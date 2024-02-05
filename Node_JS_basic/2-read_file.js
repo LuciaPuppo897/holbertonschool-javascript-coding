@@ -15,9 +15,9 @@ function countStudents(path) {
 
       if (!Object.keys(field).includes(key)) {
         field[key] = [];
-        field[key].push(stdValue[0].trim());
+        field[key].push(stdValue[0]);
       } else {
-        field[key].push(stdValue[0].trim());
+        field[key].push(stdValue[0]);
       }
     });
 
